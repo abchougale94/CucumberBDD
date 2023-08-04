@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		
-				features=".//Feature/LoginFeature.feature",
+				features=".//Feature/",
 				glue="StepDefination",
 				dryRun=false,
 				monochrome=true,

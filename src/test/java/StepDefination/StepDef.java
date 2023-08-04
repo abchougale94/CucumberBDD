@@ -3,6 +3,7 @@ package StepDefination;
 import org.junit.Assert;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import PageObject.AddNewCustomerPage;
 import PageObject.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -20,7 +21,7 @@ public class StepDef extends BaseClass {
 		WebDriverManager.chromedriver().setup();
 		driver=new ChromeDriver();
 		loginPg = new LoginPage(driver);
-		
+		AddNeCuPg=new AddNewCustomerPage(driver);
 		
 		
 	}
@@ -80,7 +81,70 @@ public class StepDef extends BaseClass {
 	@Then("the Browser is closed")
 	public void the_browser_is_closed() {
 			driver.quit();
+			
 	}
+
+	@When("User click on customer Menu")
+	public void user_click_on_customer_menu() {
+		AddNeCuPg.clickOnCustomerMenu();
+
+	}
+
+	@When("Click on customer menu Item")
+	public void click_on_customer_menu_item() {
+		AddNeCuPg.clickOnCustomerItem();
+	}
+
+	@When("Click on add new button")
+	public void click_on_add_new_button() {
+		AddNeCuPg.clickOnAddButton();
+	}
+
+	@Then("View add new customer page")
+	public void view_add_new_customer_page() {
+		String actualTitle=driver.getTitle();
+		String expectedTitle="Add a new customer / nopCommerce administration";
+		if(actualTitle.equals(expectedTitle)) {
+			Assert.assertTrue(true);
+		}else {
+			Assert.assertTrue(false);
+		}
+	}
+	
+	@When("User enter customer info")
+	public void user_enter_customer_info() {
+		
+		AddNeCuPg.enterEmailID(generateEmailID()+"@gmail.com");
+		AddNeCuPg.enterPassword("Abhi1245$");
+		AddNeCuPg.enterFistName("Abhi");
+		AddNeCuPg.enterLastName("ch");
+		AddNeCuPg.selectGender("Male");
+		AddNeCuPg.enterDateOfBirth("8/4/2023");
+		AddNeCuPg.enterCompanyName("Qspider");
+		AddNeCuPg.selectIsTaxExempt();
+//		AddNeCuPg.selectNewslatter("Your store name");
+//		AddNeCuPg.selectCustomerRole("Administrators");
+//		AddNeCuPg.selectManagerByVender("Vendor 1");
+		AddNeCuPg.enterAdminComment("Comment");
+		
+		
+	}
+
+	@When("click on Save button")
+	public void click_on_save_button() {
+		AddNeCuPg.clickOnSaveButton();	
+	}
+
+	@Then("User can view confirmation message {string}")
+	public void user_can_view_confirmation_message(String string) {
+
+		if(driver.getTitle().equals(string)) {
+			Assert.assertTrue(true);
+		}else {
+			Assert.assertTrue(false);
+		}
+	}
+	
 
 
 }

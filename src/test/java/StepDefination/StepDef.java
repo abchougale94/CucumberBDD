@@ -1,6 +1,7 @@
 package StepDefination;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import PageObject.AddNewCustomerPage;
@@ -137,8 +138,8 @@ public class StepDef extends BaseClass {
 
 	@Then("User can view confirmation message {string}")
 	public void user_can_view_confirmation_message(String string) {
-
-		if(driver.getTitle().equals(string)) {
+		String bodyTag=driver.findElement(By.tagName("Body")).getText();
+		if(bodyTag.contains(string)) {
 			Assert.assertTrue(true);
 		}else {
 			Assert.assertTrue(false);

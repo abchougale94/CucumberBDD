@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import PageObject.AddNewCustomerPage;
 import PageObject.LoginPage;
+import PageObject.SearchCustomerPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,8 +15,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class StepDef extends BaseClass {
 	
-
-	
 	
 	@Given("that the user launches the chrome browser")
 	public void that_the_user_launches_the_chrome_browser() {
@@ -23,7 +22,7 @@ public class StepDef extends BaseClass {
 		driver=new ChromeDriver();
 		loginPg = new LoginPage(driver);
 		AddNeCuPg=new AddNewCustomerPage(driver);
-		
+		SeearchCuPg=new SearchCustomerPage(driver);
 		
 	}
 
@@ -146,6 +145,23 @@ public class StepDef extends BaseClass {
 		}
 	}
 	
+	@When("Enter customer email")
+	public void enter_customer_email() {
+		String expectedEmail="victoria_victoria@nopCommerce.com	";
+		SeearchCuPg.enterEmail(expectedEmail);
+		
+	}
 
+	@When("Click on search button")
+	public void click_on_search_button() {
+		SeearchCuPg.clickOnSearchButton();
+	}
+
+	@Then("User should found email in the search table")
+	public void user_should_found_email_in_the_search_table() {
+		String expectedEmail="victoria_victoria@nopCommerce.com";
+		Assert.assertTrue(SeearchCuPg.searchCustomerByEmail(expectedEmail));
+		}
+	
 
 }
